@@ -1,0 +1,52 @@
+// import express from 'express';
+
+// import {
+//     uploadDocument,
+//     getDocuments,
+//     getDocument,
+//     deleteDocument,
+
+// } from '../controllers/documentController.js';
+
+// import protect from '../middleware/auth.js';
+// import upload from '../config/multer.js';
+
+
+// const router = express.Router();
+
+// // all routes are protected
+// router.use(protect);
+
+
+// router.post('/upload', upload.single('file'), uploadDocument);
+// router.get('/', getDocuments);
+// router.get('/:id', getDocument);
+// router.delete('/:id', deleteDocument);
+
+// export default router;
+
+// sahil
+import express from 'express';
+
+import {
+    uploadDocuments,
+    getDocuments,
+    getDocument,
+    deleteDocument,
+} from '../controllers/documentController.js';
+
+import protect from '../middleware/auth.js';
+import upload from '../config/multer.js';
+
+const router = express.Router();
+
+// all routes are protected
+router.use(protect);
+
+// up to 10 files at once, form field name must be "files"
+router.post('/upload', upload.array('files', 10), uploadDocuments);
+router.get('/', getDocuments);
+router.get('/:id', getDocument);
+router.delete('/:id', deleteDocument);
+
+export default router;
